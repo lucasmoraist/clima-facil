@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Information</title>
+    <!-- Incluindo o CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Clima Fácil</h1>
+
+    <form action="/weather/add" method="POST" class="mb-4">
+        <div class="form-group">
+            <label for="cityName">Cidade:</label>
+            <input type="text" id="cityName" name="cityName" class="form-control" placeholder="Digite o nome da cidade aqui" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Obter Clima</button>
+    </form>
+
+    <div th:if="${weather instanceof T(com.lucasmoraist.clima_facil.model.WeatherResponse)}" class="alert alert-info">
+        <h2>Clima Atual</h2>
+        <p><strong>Nome:</strong> <span th:text="${weather.name}">-</span></p>
+        <p><strong>Temperatura:</strong> <span th:text="${weather.temp}">-</span>°C</p>
+        <p><strong>Sensação Térmica:</strong> <span th:text="${weather.feelsLike}">-</span>°C</p>
+        <p><strong>Temperatura Mínima:</strong> <span th:text="${weather.tempMin}">-</span>°C</p>
+        <p><strong>Temperatura Máxima:</strong> <span th:text="${weather.tempMax}">-</span>°C</p>
+        <p><strong>Velocidade do Vento:</strong> <span th:text="${weather.windSpeed}">-</span> m/s</p>
+    </div>
+
+    <div th:if="${weather == 'Ainda não há informações de clima'}" class="alert alert-warning">
+        <p>Ainda não há informações de clima. Por favor, informe uma cidade.</p>
+    </div>
+</div>
+
+<!-- Incluindo o JS do Bootstrap (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
